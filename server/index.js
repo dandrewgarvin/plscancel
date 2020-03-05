@@ -10,7 +10,9 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-const port = process.env.SERVER_PORT;
+app.use(express.static(__dirname + "/../build"));
+
+const port = process.env.PORT;
 const io = socket(
   app.listen(port, () => console.log(`listening on port ${port}`))
 );

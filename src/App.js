@@ -5,7 +5,7 @@ import socketIOClient from "socket.io-client";
 import "./App.css";
 
 function App() {
-  const socket = socketIOClient(`http://localhost:4000`);
+  const socket = socketIOClient();
 
   const [me, setMe] = useState(null);
   const [planId, setPlanId] = useState(null);

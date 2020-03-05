@@ -5,7 +5,7 @@ import socketIOClient from "socket.io-client";
 import "./App.css";
 
 function App() {
-  const socket = socketIOClient();
+  const socket = socketIOClient(`https://plscancel.herokuapp.com`);
 
   const [me, setMe] = useState(null);
   const [planId, setPlanId] = useState(null);

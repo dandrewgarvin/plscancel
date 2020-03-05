@@ -84,7 +84,7 @@ function App() {
       planId: planInput || planId,
       memberId: me.id
     });
-  }, [me.id, planInput, planId, socket]);
+  }, [planInput, planId, socket]);
 
   return (
     <div className="App">

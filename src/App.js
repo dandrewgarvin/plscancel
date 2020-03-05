@@ -7,8 +7,6 @@ import "./App.css";
 function App() {
   const socket = socketIOClient();
 
-  console.log("socket", socket);
-
   const [me, setMe] = useState(null);
   const [planId, setPlanId] = useState(null);
   const [planInfo, setPlanInfo] = useState(null);
@@ -19,6 +17,7 @@ function App() {
   const [planInput, setPlanInput] = useState("");
 
   socket.on("created plan", newPlan => {
+    console.log("CREATED PLAN");
     setPlanId(newPlan.planId);
     setPlanInfo({
       title: newPlan.title,
@@ -29,6 +28,8 @@ function App() {
   });
 
   socket.on("new member", plan => {
+    console.log("MEMBER JOINED");
+
     setPlanInfo({
       title: plan.title,
       description: plan.description
@@ -37,10 +38,12 @@ function App() {
   });
 
   socket.on("joined plan", user => {
+    console.log("ME JOINED");
     setMe(user);
   });
 
   socket.on("cancel requested", plan => {
+    console.log("CANCEL REQUESTED");
     if (plan.cancelled) {
       setCancelled(true);
     }
@@ -49,27 +52,39 @@ function App() {
   });
 
   const createPlan = useCallback(() => {
+    console.log("CREATING");
+    console.log("name", name);
+
     socket.emit("create plan", {
       name: name,
       title: "Game Night @ Andrews",
       description:
         "There is a small game night on Tuesday at 7:00PM. Bring Food and Games!"
     });
-  }, []);
+  }, [name, socket]);
 
   const joinPlan = useCallback(() => {
+    console.log("JOINING");
+    console.log("planInput", planInput);
+    console.log("name", name);
+
     socket.emit("join plan", {
       planId: planInput,
       name: name
     });
-  }, []);
+  }, [name, socket, planInput]);
 
   const leavePlan = useCallback(() => {
+    console.log("LEAVING");
+    console.log("planInput", planInput);
+    console.log("planId", planId);
+    console.log("me.id", me.id);
+
     socket.emit("vote to cancel plan", {
       planId: planInput || planId,
       memberId: me.id
     });
-  }, []);
+  }, [me.id, planInput, planId, socket]);
 
   return (
     <div className="App">

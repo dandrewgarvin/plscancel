@@ -4,6 +4,8 @@ A service that helps you create and manage events. Game nights, parties, dates, 
 
 If everyone included in the plans vote to cancel (anonymously), they will all be notified that the plans have been cancelled, and that their evenings have freed up.
 
+Inspiration drawn from [here](https://i.imgur.com/CsZ8DPL.png)
+
 ## TODO
 
 - [] set up cancellation threshold. If a party has 10 people, only X have to vote to cancel

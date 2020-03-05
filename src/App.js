@@ -1,11 +1,13 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 
 import socketIOClient from "socket.io-client";
 
 import "./App.css";
 
 function App() {
-  const socket = socketIOClient(`https://plscancel.herokuapp.com`);
+  const socket = socketIOClient();
+
+  console.log("socket", socket);
 
   const [me, setMe] = useState(null);
   const [planId, setPlanId] = useState(null);
@@ -53,21 +55,21 @@ function App() {
       description:
         "There is a small game night on Tuesday at 7:00PM. Bring Food and Games!"
     });
-  });
+  }, []);
 
   const joinPlan = useCallback(() => {
     socket.emit("join plan", {
       planId: planInput,
       name: name
     });
-  });
+  }, []);
 
   const leavePlan = useCallback(() => {
     socket.emit("vote to cancel plan", {
       planId: planInput || planId,
       memberId: me.id
     });
-  });
+  }, []);
 
   return (
     <div className="App">
